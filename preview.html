@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hebert Paes - Plataforma Pessoal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(4px); } 
+            to { opacity: 1; transform: none; } 
+        }
+        .fade-in { animation: fadeIn 0.35s ease-out both; }
+        .card-hover { transition: box-shadow 0.2s ease, transform 0.2s ease; }
+        .card-hover:hover { box-shadow: 0 10px 30px rgba(0,0,0,0.08); transform: translateY(-2px); }
+        .dark { color-scheme: dark; }
+    </style>
+</head>
+<body class="bg-gradient-to-b from-white to-slate-50 min-h-screen" id="body">
+    <!-- Header -->
+    <header class="sticky top-0 z-30 backdrop-blur border-b bg-gradient-to-b from-white/80 to-white/40 border-slate-200/60" id="header">
+        <div class="container mx-auto px-4 max-w-6xl h-14 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-2 no-underline">
+                <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-slate-900 text-white font-bold">HP</span>
+                <span class="font-semibold tracking-tight">Hebert Paes</span>
+            </a>
+            <nav class="hidden sm:flex items-center gap-6 text-sm">
+                <a href="#acesso" class="hover:opacity-80">Entrar / Cadastrar</a>
+                <a href="#" class="hover:opacity-80">Blog</a>
+                <a href="#admin" class="hover:opacity-80">Admin</a>
+                <button onclick="toggleDarkMode()" class="ml-2 rounded-full border px-3 py-1 text-xs" id="themeToggle">
+                    🌙 Escuro
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Breadcrumbs -->
+    <div class="border-b border-slate-200/60">
+        <div class="container mx-auto px-4 max-w-6xl text-xs py-2 opacity-80">
+            <nav aria-label="breadcrumb">
+                <ol class="flex items-center gap-2">
+                    <li><a href="#" class="underline">Início</a></li>
+                    <li>/</li>
+                    <li class="text-slate-500">Plataforma</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Cache Banner -->
+    <div class="bg-green-50 border border-green-200 rounded-lg p-3 mx-4 max-w-6xl mx-auto mb-4 mt-4">
+        <div class="flex items-center gap-2 text-green-800 text-sm">
+            <span class="text-green-600">✅</span>
+            <span>Conteúdo atendido pelo cache (atualizado)</span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 max-w-6xl py-10 grid grid-cols-1 lg:grid-cols-2 gap-10 items-start fade-in">
+        <!-- Hero Section -->
+        <section class="space-y-6">
+            <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight">
+                Plataforma pessoal <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-sky-500">Hebert Paes</span>
+            </h1>
+            <p class="text-slate-600 max-w-prose">
+                Next.js no Cloud Run, com Firestore, autenticação segura e Blog otimizado para SEO e crawlers de LLMs.
+            </p>
+            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                <li class="flex items-center gap-2 rounded-xl border border-slate-200 px-3 py-2 bg-white/80">
+                    <svg class="h-4 w-4 inline-block" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19a4 4 0 0 1 0-8 5 5 0 0 1 9.58-1.65A4.5 4.5 0 1 1 18.5 19H6z"/></svg>
+                    <span>Cloud Run + SSL gerenciado</span>
+                </li>
+                <li class="flex items-center gap-2 rounded-xl border border-slate-200 px-3 py-2 bg-white/80">
+                    <svg class="h-4 w-4 inline-block" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c-4.97 0-9 1.79-9 4v10c0 2.21 4.03 4 9 4s9-1.79 9-4V7c0-2.21-4.03-4-9-4z"/></svg>
+                    <span>Firestore (ADC)</span>
+                </li>
+                <li class="flex items-center gap-2 rounded-xl border border-slate-200 px-3 py-2 bg-white/80">
+                    <svg class="h-4 w-4 inline-block" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z"/></svg>
+                    <span>CI/CD GitHub Actions</span>
+                </li>
+                <li class="flex items-center gap-2 rounded-xl border border-slate-200 px-3 py-2 bg-white/80">
+                    <svg class="h-4 w-4 inline-block" viewBox="0 0 24 24" fill="currentColor"><path d="M3 12h18M5 7h14M7 17h10"/></svg>
+                    <span>Cache via Cloudflare</span>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Auth Panel -->
+        <section id="acesso" class="w-full">
+            <div class="rounded-2xl border border-slate-200 bg-white/90 p-6 card-hover">
+                <div class="flex mb-4">
+                    <button onclick="showLogin()" class="flex-1 py-2 px-4 text-sm font-medium rounded-l-lg border bg-slate-900 text-white border-slate-900" id="loginTab">
+                        Entrar
+                    </button>
+                    <button onclick="showRegister()" class="flex-1 py-2 px-4 text-sm font-medium rounded-r-lg border-t border-r border-b bg-white text-slate-700 border-slate-300 hover:bg-slate-50" id="registerTab">
+                        Cadastrar
+                    </button>
+                </div>
+                
+                <!-- Login Form -->
+                <form id="loginForm" class="space-y-4">
+                    <h3 class="text-lg font-semibold">Entrar</h3>
+                    <div>
+                        <label class="block text-sm mb-1" for="login-email">E-mail</label>
+                        <input id="login-email" type="email" class="w-full rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="seu@email.com">
+                    </div>
+                    <div>
+                        <label class="block text-sm mb-1" for="login-pass">Senha</label>
+                        <input id="login-pass" type="password" class="w-full rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Sua senha">
+                    </div>
+                    <button type="submit" class="w-full rounded-xl bg-slate-900 text-white py-2.5 font-medium hover:bg-slate-800">
+                        Entrar
+                    </button>
+                </form>
+
+                <!-- Register Form (hidden by default) -->
+                <form id="registerForm" class="space-y-4 hidden">
+                    <h3 class="text-lg font-semibold">Criar conta</h3>
+                    <div>
+                        <label class="block text-sm mb-1" for="reg-email">E-mail</label>
+                        <input id="reg-email" type="email" class="w-full rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="seu@email.com">
+                    </div>
+                    <div>
+                        <label class="block text-sm mb-1" for="reg-pass">Senha (mín. 8)</label>
+                        <input id="reg-pass" type="password" class="w-full rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Mínimo 8 caracteres">
+                    </div>
+                    <button type="submit" class="w-full rounded-xl bg-indigo-600 text-white py-2.5 font-medium hover:bg-indigo-700">
+                        Cadastrar
+                    </button>
+                </form>
+            </div>
+
+            <!-- Cache Controls -->
+            <div class="mt-4 rounded-xl border border-slate-200 bg-white/90 p-4">
+                <h4 class="font-semibold mb-3">Simular cache:</h4>
+                <div class="flex gap-2">
+                    <button class="px-3 py-1 text-xs border border-slate-300 rounded hover:bg-slate-50">MISS</button>
+                    <button class="px-3 py-1 text-xs border border-slate-300 rounded hover:bg-slate-50">REFRESH</button>
+                    <button class="px-3 py-1 text-xs bg-green-100 border border-green-300 rounded text-green-800">HIT</button>
+                </div>
+                <p class="text-xs text-slate-500 mt-2">(prévia)</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Blog Section -->
+    <section class="container mx-auto px-4 max-w-6xl py-10 fade-in">
+        <h2 class="text-2xl font-bold mb-6">Últimos artigos</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <article class="rounded-2xl border border-slate-200 bg-white/90 overflow-hidden card-hover">
+                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400" alt="Post thumbnail" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h3 class="font-semibold mb-2">Como implementar autenticação segura</h3>
+                    <p class="text-sm text-slate-600 mb-3">Guia completo para implementar autenticação com cookies seguros e sessões.</p>
+                    <div class="flex items-center justify-between text-xs text-slate-500">
+                        <span>15 de dezembro</span>
+                        <span>8 min de leitura</span>
+                    </div>
+                </div>
+            </article>
+            <article class="rounded-2xl border border-slate-200 bg-white/90 overflow-hidden card-hover">
+                <img src="https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?w=400" alt="Post thumbnail" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h3 class="font-semibold mb-2">Deploy no Cloud Run com CI/CD</h3>
+                    <p class="text-sm text-slate-600 mb-3">Automatize seus deploys com GitHub Actions e Google Cloud Run.</p>
+                    <div class="flex items-center justify-between text-xs text-slate-500">
+                        <span>12 de dezembro</span>
+                        <span>12 min de leitura</span>
+                    </div>
+                </div>
+            </article>
+            <article class="rounded-2xl border border-slate-200 bg-white/90 overflow-hidden card-hover">
+                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400" alt="Post thumbnail" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h3 class="font-semibold mb-2">Otimização para LLMs e SEO</h3>
+                    <p class="text-sm text-slate-600 mb-3">Como estruturar conteúdo para ser encontrado por crawlers de IA.</p>
+                    <div class="flex items-center justify-between text-xs text-slate-500">
+                        <span>10 de dezembro</span>
+                        <span>6 min de leitura</span>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Admin Panel -->
+    <section id="admin" class="container mx-auto px-4 max-w-6xl py-12 fade-in">
+        <div class="rounded-2xl border border-slate-200 bg-white/90 p-6 card-hover">
+            <h2 class="text-xl font-bold mb-4">Painel Administrativo</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="p-4 border border-slate-200 rounded-lg">
+                    <h3 class="font-semibold mb-2">Cookies seguros</h3>
+                    <p class="text-sm text-slate-600">(httpOnly)</p>
+                </div>
+                <div class="p-4 border border-slate-200 rounded-lg">
+                    <h3 class="font-semibold mb-2">Sessões com hash</h3>
+                    <p class="text-sm text-slate-600">SHA-256</p>
+                </div>
+                <div class="p-4 border border-slate-200 rounded-lg">
+                    <h3 class="font-semibold mb-2">Rate limiting &</h3>
+                    <p class="text-sm text-slate-600">auditoria</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-200 mt-16 py-8">
+        <div class="container mx-auto px-4 max-w-6xl text-center text-sm text-slate-600">
+            <p>© 2024 Hebert Paes. Plataforma pessoal com Next.js e Cloud Run.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Dark mode toggle
+        let isDark = false;
+        
+        function toggleDarkMode() {
+            isDark = !isDark;
+            const body = document.getElementById('body');
+            const header = document.getElementById('header');
+            const toggle = document.getElementById('themeToggle');
+            
+            if (isDark) {
+                body.className = 'bg-slate-950 text-slate-100 min-h-screen';
+                header.className = 'sticky top-0 z-30 backdrop-blur border-b bg-slate-900/70 border-slate-800';
+                toggle.textContent = '☀️ Claro';
+            } else {
+                body.className = 'bg-gradient-to-b from-white to-slate-50 min-h-screen';
+                header.className = 'sticky top-0 z-30 backdrop-blur border-b bg-gradient-to-b from-white/80 to-white/40 border-slate-200/60';
+                toggle.textContent = '🌙 Escuro';
+            }
+        }
+        
+        // Tab switching
+        function showLogin() {
+            document.getElementById('loginForm').classList.remove('hidden');
+            document.getElementById('registerForm').classList.add('hidden');
+            document.getElementById('loginTab').className = 'flex-1 py-2 px-4 text-sm font-medium rounded-l-lg border bg-slate-900 text-white border-slate-900';
+            document.getElementById('registerTab').className = 'flex-1 py-2 px-4 text-sm font-medium rounded-r-lg border-t border-r border-b bg-white text-slate-700 border-slate-300 hover:bg-slate-50';
+        }
+        
+        function showRegister() {
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('registerForm').classList.remove('hidden');
+            document.getElementById('loginTab').className = 'flex-1 py-2 px-4 text-sm font-medium rounded-l-lg border bg-white text-slate-700 border-slate-300 hover:bg-slate-50';
+            document.getElementById('registerTab').className = 'flex-1 py-2 px-4 text-sm font-medium rounded-r-lg border bg-slate-900 text-white border-slate-900';
+        }
+        
+        // Form submissions
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Login simulado! (Esta é apenas uma prévia)');
+        });
+        
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Cadastro simulado! (Esta é apenas uma prévia)');
+        });
+    </script>
+</body>
+</html>
