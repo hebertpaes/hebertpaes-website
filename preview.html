@@ -1,263 +1,672 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hebert Paes - Plataforma Pessoal</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @keyframes fadeIn { 
-            from { opacity: 0; transform: translateY(4px); } 
-            to { opacity: 1; transform: none; } 
-        }
-        .fade-in { animation: fadeIn 0.35s ease-out both; }
-        .card-hover { transition: box-shadow 0.2s ease, transform 0.2s ease; }
-        .card-hover:hover { box-shadow: 0 10px 30px rgba(0,0,0,0.08); transform: translateY(-2px); }
-        .dark { color-scheme: dark; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hebert Paes Imóveis • Consultoria Imobiliária Completa</title>
+  <meta name="description" content="Imobiliária digital especializada em imóveis residenciais e comerciais no Espírito Santo. Consulte anúncios exclusivos, tour virtual, financiamento e atendimento humanizado." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    ::selection {
+      background: rgba(59, 130, 246, 0.25);
+    }
+    .card-hover {
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 25px 45px -20px rgba(30, 64, 175, 0.25);
+    }
+    .badge {
+      position: absolute;
+      inset: 16px auto auto 16px;
+      background: rgba(15, 23, 42, 0.85);
+      color: #f8fafc;
+      font-size: 0.75rem;
+      letter-spacing: 0.04em;
+      padding: 0.35rem 0.65rem;
+      border-radius: 999px;
+      text-transform: uppercase;
+    }
+    .section-title {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgb(30 64 175);
+    }
+    .gradient-border {
+      position: relative;
+    }
+    .gradient-border::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: 1.5rem;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.4), rgba(14, 116, 144, 0.4));
+      z-index: -1;
+    }
+    .tabs button.is-active {
+      background: linear-gradient(135deg, rgb(37 99 235), rgb(30 64 175));
+      color: white;
+      border-color: transparent;
+      box-shadow: 0 15px 30px -12px rgba(30, 64, 175, 0.35);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
 </head>
-<body class="bg-gradient-to-b from-white to-slate-50 min-h-screen" id="body">
-    <!-- Header -->
-    <header class="sticky top-0 z-30 backdrop-blur border-b bg-gradient-to-b from-white/80 to-white/40 border-slate-200/60" id="header">
-        <div class="container mx-auto px-4 max-w-6xl h-14 flex items-center justify-between">
-            <a href="#" class="flex items-center gap-2 no-underline">
-                <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-slate-900 text-white font-bold">HP</span>
-                <span class="font-semibold tracking-tight">Hebert Paes</span>
-            </a>
-            <nav class="hidden sm:flex items-center gap-6 text-sm">
-                <a href="#acesso" class="hover:opacity-80">Entrar / Cadastrar</a>
-                <a href="#" class="hover:opacity-80">Blog</a>
-                <a href="#admin" class="hover:opacity-80">Admin</a>
-                <button onclick="toggleDarkMode()" class="ml-2 rounded-full border px-3 py-1 text-xs" id="themeToggle">
-                    🌙 Escuro
-                </button>
-            </nav>
+<body class="bg-slate-50 text-slate-900">
+  <header class="relative border-b border-slate-200/60 backdrop-blur bg-white/80">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+      <a class="flex items-center gap-3" href="#hero" aria-label="Hebert Paes Imóveis">
+        <span class="grid h-11 w-11 place-items-center rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 text-lg font-semibold text-white shadow-lg">HP</span>
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-[0.32em] text-slate-500">Consultoria</p>
+          <p class="text-lg font-semibold text-slate-900">Hebert Paes Imóveis</p>
         </div>
-    </header>
-
-    <!-- Breadcrumbs -->
-    <div class="border-b border-slate-200/60">
-        <div class="container mx-auto px-4 max-w-6xl text-xs py-2 opacity-80">
-            <nav aria-label="breadcrumb">
-                <ol class="flex items-center gap-2">
-                    <li><a href="#" class="underline">Início</a></li>
-                    <li>/</li>
-                    <li class="text-slate-500">Plataforma</li>
-                </ol>
-            </nav>
-        </div>
+      </a>
+      <nav class="hidden items-center gap-8 text-sm font-medium text-slate-600 lg:flex">
+        <a class="hover:text-blue-700 transition" href="#destaques">Destaques</a>
+        <a class="hover:text-blue-700 transition" href="#bairros">Bairros</a>
+        <a class="hover:text-blue-700 transition" href="#servicos">Serviços</a>
+        <a class="hover:text-blue-700 transition" href="#contato">Contato</a>
+        <a class="rounded-full border border-blue-100 bg-blue-50 px-4 py-2 text-blue-700" href="#agende">Agendar visita</a>
+      </nav>
+      <button class="rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-600 lg:hidden" id="menuButton" aria-expanded="false" aria-controls="mobileMenu">Menu</button>
     </div>
-
-    <!-- Cache Banner -->
-    <div class="bg-green-50 border border-green-200 rounded-lg p-3 mx-4 max-w-6xl mx-auto mb-4 mt-4">
-        <div class="flex items-center gap-2 text-green-800 text-sm">
-            <span class="text-green-600">✅</span>
-            <span>Conteúdo atendido pelo cache (atualizado)</span>
-        </div>
+    <div class="hidden border-t border-slate-200 bg-white px-6 py-4" id="mobileMenu">
+      <nav class="grid gap-4 text-sm font-medium text-slate-700">
+        <a href="#destaques">Destaques</a>
+        <a href="#bairros">Bairros</a>
+        <a href="#servicos">Serviços</a>
+        <a href="#contato">Contato</a>
+        <a class="rounded-full border border-blue-100 bg-blue-50 px-4 py-2 text-blue-700" href="#agende">Agendar visita</a>
+      </nav>
     </div>
+  </header>
 
-    <!-- Main Content -->
-    <main class="container mx-auto px-4 max-w-6xl py-10 grid grid-cols-1 lg:grid-cols-2 gap-10 items-start fade-in">
-        <!-- Hero Section -->
-        <section class="space-y-6">
-            <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight">
-                Plataforma pessoal <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-sky-500">Hebert Paes</span>
-            </h1>
-            <p class="text-slate-600 max-w-prose">
-                Next.js no Cloud Run, com Firestore, autenticação segura e Blog otimizado para SEO e crawlers de LLMs.
-            </p>
-            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
-                <li class="flex items-center gap-2 rounded-xl border border-slate-200 px-3 py-2 bg-white/80">
-                    <svg class="h-4 w-4 inline-block" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19a4 4 0 0 1 0-8 5 5 0 0 1 9.58-1.65A4.5 4.5 0 1 1 18.5 19H6z"/></svg>
-                    <span>Cloud Run + SSL gerenciado</span>
-                </li>
-                <li class="flex items-center gap-2 rounded-xl border border-slate-200 px-3 py-2 bg-white/80">
-                    <svg class="h-4 w-4 inline-block" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c-4.97 0-9 1.79-9 4v10c0 2.21 4.03 4 9 4s9-1.79 9-4V7c0-2.21-4.03-4-9-4z"/></svg>
-                    <span>Firestore (ADC)</span>
-                </li>
-                <li class="flex items-center gap-2 rounded-xl border border-slate-200 px-3 py-2 bg-white/80">
-                    <svg class="h-4 w-4 inline-block" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z"/></svg>
-                    <span>CI/CD GitHub Actions</span>
-                </li>
-                <li class="flex items-center gap-2 rounded-xl border border-slate-200 px-3 py-2 bg-white/80">
-                    <svg class="h-4 w-4 inline-block" viewBox="0 0 24 24" fill="currentColor"><path d="M3 12h18M5 7h14M7 17h10"/></svg>
-                    <span>Cache via Cloudflare</span>
-                </li>
+  <main>
+    <section id="hero" class="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-slate-100">
+      <div class="absolute inset-y-0 right-0 hidden w-1/2 max-w-xl translate-x-1/3 bg-[url('https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=1200&q=80')] bg-cover bg-center opacity-80 lg:block" role="presentation"></div>
+      <div class="mx-auto grid max-w-6xl gap-12 px-6 py-20 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:py-24">
+        <div class="space-y-8">
+          <span class="section-title">Imobiliária digital no Espírito Santo</span>
+          <h1 class="text-4xl font-bold leading-tight tracking-tight text-slate-900 sm:text-5xl">
+            Encontre o imóvel ideal com atendimento humano, dados atualizados e tours imersivos.
+          </h1>
+          <p class="text-lg text-slate-600">
+            Mais de 350 imóveis com documentação verificada, parcerias com os principais bancos e suporte personalizado em todas as etapas: busca, visita, financiamento e pós-entrega.
+          </p>
+          <div class="rounded-3xl bg-white/90 p-6 shadow-xl shadow-blue-100/70 backdrop-blur">
+            <form class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4" id="searchForm">
+              <label class="text-sm font-medium text-slate-500">
+                Cidade
+                <input class="mt-1 w-full rounded-2xl border border-slate-200 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100" name="cidade" type="text" placeholder="Vitória" />
+              </label>
+              <label class="text-sm font-medium text-slate-500">
+                Tipo
+                <select class="mt-1 w-full rounded-2xl border border-slate-200 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100" name="tipo">
+                  <option value="">Todos</option>
+                  <option value="residencial">Residencial</option>
+                  <option value="comercial">Comercial</option>
+                  <option value="luxo">Alto padrão</option>
+                </select>
+              </label>
+              <label class="text-sm font-medium text-slate-500">
+                Faixa de preço
+                <select class="mt-1 w-full rounded-2xl border border-slate-200 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100" name="preco">
+                  <option value="">Qualquer</option>
+                  <option value="300">Até R$ 300 mil</option>
+                  <option value="600">Até R$ 600 mil</option>
+                  <option value="1000">Até R$ 1 milhão</option>
+                  <option value="luxo">Acima de R$ 1 milhão</option>
+                </select>
+              </label>
+              <button class="mt-6 inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-700 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-300/50 transition hover:shadow-blue-400/40" type="submit">
+                Buscar imóveis
+              </button>
+            </form>
+            <p class="mt-3 text-xs text-slate-500">+25 lançamentos atualizados nas últimas 48h • Tours 360° e vídeo disponíveis sob consulta.</p>
+          </div>
+          <div class="flex flex-wrap items-center gap-6 text-sm text-slate-600">
+            <div>
+              <p class="text-3xl font-semibold text-blue-600">350+</p>
+              <p>imóveis disponíveis</p>
+            </div>
+            <div>
+              <p class="text-3xl font-semibold text-blue-600">98%</p>
+              <p>de clientes satisfeitos</p>
+            </div>
+            <div>
+              <p class="text-3xl font-semibold text-blue-600">72h</p>
+              <p>para agendar visitas</p>
+            </div>
+          </div>
+        </div>
+        <div class="relative hidden lg:block">
+          <div class="gradient-border rounded-3xl bg-white/80 p-6 shadow-xl shadow-blue-200">
+            <div class="rounded-2xl bg-slate-900/90 p-6 text-white">
+              <p class="text-sm uppercase tracking-[0.18em] text-blue-200">Residencial Horizonte</p>
+              <h2 class="mt-2 text-2xl font-semibold">Cobertura duplex frente para o mar</h2>
+              <p class="mt-4 text-sm text-blue-100">Praia de Camburi • 4 suítes • 3 vagas • 286m² privativos</p>
+              <p class="mt-6 text-3xl font-semibold text-white">R$ 2.750.000</p>
+              <ul class="mt-6 grid grid-cols-2 gap-4 text-xs text-blue-100">
+                <li class="flex items-center gap-2"><span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/10">🏊‍♂️</span>Piscina aquecida</li>
+                <li class="flex items-center gap-2"><span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/10">🛋️</span>Living integrado</li>
+                <li class="flex items-center gap-2"><span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/10">🌇</span>Vista panorâmica</li>
+                <li class="flex items-center gap-2"><span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/10">🛡️</span>Portaria 24h</li>
+              </ul>
+              <button class="mt-8 w-full rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-blue-50" type="button">
+                Agendar tour exclusivo
+              </button>
+            </div>
+            <p class="mt-4 text-xs text-slate-500">Atualizado em 17 de janeiro • Código HP1245</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="destaques" class="mx-auto max-w-6xl px-6 py-20">
+      <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <span class="section-title">Em destaque</span>
+          <h2 class="mt-2 text-3xl font-semibold tracking-tight text-slate-900">Imóveis selecionados para você</h2>
+          <p class="mt-2 max-w-2xl text-sm text-slate-600">Baseado nas referências, trazemos opções que misturam alto padrão, residenciais familiares e comerciais com alto fluxo.</p>
+        </div>
+        <div class="tabs inline-flex rounded-full border border-slate-200 bg-white p-1 text-sm font-medium text-slate-600 shadow-sm">
+          <button class="rounded-full px-4 py-2 is-active" data-filter="">Todos</button>
+          <button class="rounded-full px-4 py-2" data-filter="residencial">Residenciais</button>
+          <button class="rounded-full px-4 py-2" data-filter="luxo">Luxo</button>
+          <button class="rounded-full px-4 py-2" data-filter="comercial">Comerciais</button>
+        </div>
+      </div>
+
+      <div class="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3" id="propertyGrid">
+        <article class="card-hover group overflow-hidden rounded-3xl border border-slate-200 bg-white" data-type="luxo" data-city="vitoria" data-price="luxo">
+          <div class="relative h-56 w-full overflow-hidden">
+            <span class="badge">Exclusivo</span>
+            <img class="h-full w-full object-cover transition duration-700 group-hover:scale-105" src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=900&q=80" alt="Cobertura duplex luxo" loading="lazy" />
+          </div>
+          <div class="space-y-4 p-6">
+            <header class="space-y-1">
+              <h3 class="text-xl font-semibold text-slate-900">Cobertura Skyline Camburi</h3>
+              <p class="text-sm text-slate-500">Vitória • 4 suítes • 3 vagas • 280m²</p>
+            </header>
+            <p class="text-sm text-slate-600">Varanda gourmet com vista 180°, rooftop privativo e integração completa de ambientes.</p>
+            <div class="flex items-center justify-between text-sm">
+              <span class="font-semibold text-blue-700">R$ 2.980.000</span>
+              <a class="inline-flex items-center gap-2 text-sm font-semibold text-blue-600" href="#contato">Ver detalhes →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card-hover group overflow-hidden rounded-3xl border border-slate-200 bg-white" data-type="residencial" data-city="serra" data-price="600">
+          <div class="relative h-56 w-full overflow-hidden">
+            <span class="badge bg-blue-600 text-white">Lançamento</span>
+            <img class="h-full w-full object-cover transition duration-700 group-hover:scale-105" src="https://images.unsplash.com/photo-1600585154340-0ef3c08dcdb6?w=900&q=80" alt="Casa condomínio" loading="lazy" />
+          </div>
+          <div class="space-y-4 p-6">
+            <header class="space-y-1">
+              <h3 class="text-xl font-semibold text-slate-900">Casa em condomínio Alphaville</h3>
+              <p class="text-sm text-slate-500">Serra • 3 suítes • 2 vagas • 198m²</p>
+            </header>
+            <p class="text-sm text-slate-600">Projeto contemporâneo com pé-direito duplo, área gourmet integrada e preparação para energia solar.</p>
+            <div class="flex items-center justify-between text-sm">
+              <span class="font-semibold text-blue-700">R$ 890.000</span>
+              <a class="inline-flex items-center gap-2 text-sm font-semibold text-blue-600" href="#contato">Agendar visita →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card-hover group overflow-hidden rounded-3xl border border-slate-200 bg-white" data-type="comercial" data-city="vila velha" data-price="1000">
+          <div class="relative h-56 w-full overflow-hidden">
+            <span class="badge bg-emerald-600">Oportunidade</span>
+            <img class="h-full w-full object-cover transition duration-700 group-hover:scale-105" src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=80" alt="Sala comercial" loading="lazy" />
+          </div>
+          <div class="space-y-4 p-6">
+            <header class="space-y-1">
+              <h3 class="text-xl font-semibold text-slate-900">Sala corporativa Enseada</h3>
+              <p class="text-sm text-slate-500">Vila Velha • 2 vagas • 136m²</p>
+            </header>
+            <p class="text-sm text-slate-600">Andar alto, fachada espelhada, auditório compartilhado, heliponto e estrutura para tech companies.</p>
+            <div class="flex items-center justify-between text-sm">
+              <span class="font-semibold text-blue-700">R$ 1.120.000</span>
+              <a class="inline-flex items-center gap-2 text-sm font-semibold text-blue-600" href="#contato">Fale com especialista →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card-hover group overflow-hidden rounded-3xl border border-slate-200 bg-white" data-type="residencial" data-city="guarapari" data-price="300">
+          <div class="relative h-56 w-full overflow-hidden">
+            <span class="badge bg-sky-500">Tour 360°</span>
+            <img class="h-full w-full object-cover transition duration-700 group-hover:scale-105" src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=900&q=80" alt="Apartamento beira mar" loading="lazy" />
+          </div>
+          <div class="space-y-4 p-6">
+            <header class="space-y-1">
+              <h3 class="text-xl font-semibold text-slate-900">Apartamento Atlântico Residence</h3>
+              <p class="text-sm text-slate-500">Guarapari • 2 quartos • 1 vaga • 78m²</p>
+            </header>
+            <p class="text-sm text-slate-600">Mobilado, varanda com vista definitiva e condomínio completo com lazer.</p>
+            <div class="flex items-center justify-between text-sm">
+              <span class="font-semibold text-blue-700">R$ 430.000</span>
+              <a class="inline-flex items-center gap-2 text-sm font-semibold text-blue-600" href="#contato">Tour virtual →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card-hover group overflow-hidden rounded-3xl border border-slate-200 bg-white" data-type="luxo" data-city="vitoria" data-price="luxo">
+          <div class="relative h-56 w-full overflow-hidden">
+            <span class="badge bg-purple-600">Vista mar</span>
+            <img class="h-full w-full object-cover transition duration-700 group-hover:scale-105" src="https://images.unsplash.com/photo-1616628182501-035ed6c186f3?w=900&q=80" alt="Mansão alto padrão" loading="lazy" />
+          </div>
+          <div class="space-y-4 p-6">
+            <header class="space-y-1">
+              <h3 class="text-xl font-semibold text-slate-900">Mansão Ilha do Boi Signature</h3>
+              <p class="text-sm text-slate-500">Vitória • 5 suítes • 6 vagas • 650m²</p>
+            </header>
+            <p class="text-sm text-slate-600">Arquitetura autoral, elevador panorâmico, adega climatizada e píer privativo.</p>
+            <div class="flex items-center justify-between text-sm">
+              <span class="font-semibold text-blue-700">Sob consulta</span>
+              <a class="inline-flex items-center gap-2 text-sm font-semibold text-blue-600" href="#contato">Solicitar proposta →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card-hover group overflow-hidden rounded-3xl border border-slate-200 bg-white" data-type="comercial" data-city="cariacica" data-price="600">
+          <div class="relative h-56 w-full overflow-hidden">
+            <span class="badge bg-amber-500">Nova</span>
+            <img class="h-full w-full object-cover transition duration-700 group-hover:scale-105" src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=900&q=80" alt="Galpão logístico" loading="lazy" />
+          </div>
+          <div class="space-y-4 p-6">
+            <header class="space-y-1">
+              <h3 class="text-xl font-semibold text-slate-900">Galpão logístico BR-262</h3>
+              <p class="text-sm text-slate-500">Cariacica • Pé-direito 12m • 2.000m²</p>
+            </header>
+            <p class="text-sm text-slate-600">Zoneamento industrial, docas niveladoras, gerador e sprinklers automáticos.</p>
+            <div class="flex items-center justify-between text-sm">
+              <span class="font-semibold text-blue-700">R$ 720.000</span>
+              <a class="inline-flex items-center gap-2 text-sm font-semibold text-blue-600" href="#contato">Consultar →</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="bairros" class="bg-slate-900 py-20 text-slate-100">
+      <div class="mx-auto grid max-w-6xl gap-14 px-6 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)]">
+        <div class="space-y-6">
+          <span class="section-title text-slate-200">Onde atuamos</span>
+          <h2 class="text-3xl font-semibold tracking-tight">Especialistas nos bairros mais desejados</h2>
+          <p class="text-sm text-slate-300">Cobertura total na Grande Vitória, com corretores dedicados por região, guias de preço em tempo real e estudos de liquidez para investidores.</p>
+          <ul class="space-y-4 text-sm">
+            <li class="flex items-center gap-3"><span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10">🏖️</span>Praia do Canto, Jardim da Penha, Ilha do Boi</li>
+            <li class="flex items-center gap-3"><span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10">🌆</span>Praia da Costa, Itapuã, Centro de Vila Velha</li>
+            <li class="flex items-center gap-3"><span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10">🏙️</span>Laranjeiras, Manguinhos e região da Serra</li>
+            <li class="flex items-center gap-3"><span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10">🏞️</span>Guarapari, Meaípe e litoral sul capixaba</li>
+          </ul>
+        </div>
+        <div class="grid gap-6 lg:grid-cols-2">
+          <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
+            <p class="text-sm uppercase tracking-[0.18em] text-slate-300">Inteligência de mercado</p>
+            <h3 class="mt-3 text-xl font-semibold text-white">Boletim mensal com indicadores exclusivos</h3>
+            <p class="mt-3 text-sm text-slate-300">Comparativo de valorização por bairro, ticket médio e velocidade de venda para orientar sua negociação.</p>
+            <a class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-blue-200" href="#contato">Receber boletim →</a>
+          </div>
+          <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
+            <p class="text-sm uppercase tracking-[0.18em] text-slate-300">Rede de parceiros</p>
+            <h3 class="mt-3 text-xl font-semibold text-white">Engenharia, jurídico e financiamento</h3>
+            <p class="mt-3 text-sm text-slate-300">Avaliação estrutural, regularização documental e crédito aprovado com taxas especiais em até 48 horas.</p>
+            <a class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-blue-200" href="#contato">Quero uma simulação →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="servicos" class="mx-auto max-w-6xl px-6 py-20">
+      <div class="grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
+        <div class="space-y-6">
+          <span class="section-title">Soluções completas</span>
+          <h2 class="text-3xl font-semibold tracking-tight text-slate-900">Um ecossistema pensado para compradores, vendedores e investidores</h2>
+          <p class="text-sm text-slate-600">Do marketing ao pós-venda, você conta com tecnologia, governança e atendimento especializado inspirados nas melhores práticas das imobiliárias digitais do Brasil.</p>
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+              <h3 class="text-lg font-semibold text-slate-900">Captação + Home staging</h3>
+              <p class="mt-2 text-sm text-slate-600">Produção fotográfica, vídeo, planta humanizada e anúncios nos principais portais.</p>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+              <h3 class="text-lg font-semibold text-slate-900">Consultoria jurídica</h3>
+              <p class="mt-2 text-sm text-slate-600">Due diligence completa, análise de contratos e segurança de ponta a ponta.</p>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+              <h3 class="text-lg font-semibold text-slate-900">Financiamento ágil</h3>
+              <p class="mt-2 text-sm text-slate-600">Pré-aprovação digital com Itaú, Caixa e Santander • Simulação personalizada.</p>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+              <h3 class="text-lg font-semibold text-slate-900">Invest Smart</h3>
+              <p class="mt-2 text-sm text-slate-600">Relatórios de rentabilidade, locação garantida e gestão patrimonial integrada.</p>
+            </div>
+          </div>
+        </div>
+        <div class="rounded-3xl bg-gradient-to-br from-blue-600 to-indigo-700 p-[1px] shadow-xl">
+          <div class="rounded-[1.4rem] bg-slate-900 p-8 text-slate-100">
+            <p class="text-sm uppercase tracking-[0.18em] text-blue-200">Atendimento digital + humanizado</p>
+            <h3 class="mt-4 text-2xl font-semibold">Seu consultor dedicado acompanha cada etapa</h3>
+            <ul class="mt-6 space-y-4 text-sm">
+              <li class="flex items-start gap-3"><span class="mt-1 text-lg">🤝</span>Equipe disponível 7 dias/semana via WhatsApp, vídeo e atendimento presencial.</li>
+              <li class="flex items-start gap-3"><span class="mt-1 text-lg">📑</span>Checklist de documentação, assinatura digital e acompanhamento de cartório.</li>
+              <li class="flex items-start gap-3"><span class="mt-1 text-lg">🗺️</span>Roteiros personalizados com visitas organizadas e tour virtual 360°.</li>
+              <li class="flex items-start gap-3"><span class="mt-1 text-lg">🔐</span>Transações seguras com auditoria, registros e confirmação em tempo real.</li>
             </ul>
-        </section>
-
-        <!-- Auth Panel -->
-        <section id="acesso" class="w-full">
-            <div class="rounded-2xl border border-slate-200 bg-white/90 p-6 card-hover">
-                <div class="flex mb-4">
-                    <button onclick="showLogin()" class="flex-1 py-2 px-4 text-sm font-medium rounded-l-lg border bg-slate-900 text-white border-slate-900" id="loginTab">
-                        Entrar
-                    </button>
-                    <button onclick="showRegister()" class="flex-1 py-2 px-4 text-sm font-medium rounded-r-lg border-t border-r border-b bg-white text-slate-700 border-slate-300 hover:bg-slate-50" id="registerTab">
-                        Cadastrar
-                    </button>
-                </div>
-                
-                <!-- Login Form -->
-                <form id="loginForm" class="space-y-4">
-                    <h3 class="text-lg font-semibold">Entrar</h3>
-                    <div>
-                        <label class="block text-sm mb-1" for="login-email">E-mail</label>
-                        <input id="login-email" type="email" class="w-full rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="seu@email.com">
-                    </div>
-                    <div>
-                        <label class="block text-sm mb-1" for="login-pass">Senha</label>
-                        <input id="login-pass" type="password" class="w-full rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Sua senha">
-                    </div>
-                    <button type="submit" class="w-full rounded-xl bg-slate-900 text-white py-2.5 font-medium hover:bg-slate-800">
-                        Entrar
-                    </button>
-                </form>
-
-                <!-- Register Form (hidden by default) -->
-                <form id="registerForm" class="space-y-4 hidden">
-                    <h3 class="text-lg font-semibold">Criar conta</h3>
-                    <div>
-                        <label class="block text-sm mb-1" for="reg-email">E-mail</label>
-                        <input id="reg-email" type="email" class="w-full rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="seu@email.com">
-                    </div>
-                    <div>
-                        <label class="block text-sm mb-1" for="reg-pass">Senha (mín. 8)</label>
-                        <input id="reg-pass" type="password" class="w-full rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Mínimo 8 caracteres">
-                    </div>
-                    <button type="submit" class="w-full rounded-xl bg-indigo-600 text-white py-2.5 font-medium hover:bg-indigo-700">
-                        Cadastrar
-                    </button>
-                </form>
-            </div>
-
-            <!-- Cache Controls -->
-            <div class="mt-4 rounded-xl border border-slate-200 bg-white/90 p-4">
-                <h4 class="font-semibold mb-3">Simular cache:</h4>
-                <div class="flex gap-2">
-                    <button class="px-3 py-1 text-xs border border-slate-300 rounded hover:bg-slate-50">MISS</button>
-                    <button class="px-3 py-1 text-xs border border-slate-300 rounded hover:bg-slate-50">REFRESH</button>
-                    <button class="px-3 py-1 text-xs bg-green-100 border border-green-300 rounded text-green-800">HIT</button>
-                </div>
-                <p class="text-xs text-slate-500 mt-2">(prévia)</p>
-            </div>
-        </section>
-    </main>
-
-    <!-- Blog Section -->
-    <section class="container mx-auto px-4 max-w-6xl py-10 fade-in">
-        <h2 class="text-2xl font-bold mb-6">Últimos artigos</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <article class="rounded-2xl border border-slate-200 bg-white/90 overflow-hidden card-hover">
-                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400" alt="Post thumbnail" class="w-full h-48 object-cover">
-                <div class="p-4">
-                    <h3 class="font-semibold mb-2">Como implementar autenticação segura</h3>
-                    <p class="text-sm text-slate-600 mb-3">Guia completo para implementar autenticação com cookies seguros e sessões.</p>
-                    <div class="flex items-center justify-between text-xs text-slate-500">
-                        <span>15 de dezembro</span>
-                        <span>8 min de leitura</span>
-                    </div>
-                </div>
-            </article>
-            <article class="rounded-2xl border border-slate-200 bg-white/90 overflow-hidden card-hover">
-                <img src="https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?w=400" alt="Post thumbnail" class="w-full h-48 object-cover">
-                <div class="p-4">
-                    <h3 class="font-semibold mb-2">Deploy no Cloud Run com CI/CD</h3>
-                    <p class="text-sm text-slate-600 mb-3">Automatize seus deploys com GitHub Actions e Google Cloud Run.</p>
-                    <div class="flex items-center justify-between text-xs text-slate-500">
-                        <span>12 de dezembro</span>
-                        <span>12 min de leitura</span>
-                    </div>
-                </div>
-            </article>
-            <article class="rounded-2xl border border-slate-200 bg-white/90 overflow-hidden card-hover">
-                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400" alt="Post thumbnail" class="w-full h-48 object-cover">
-                <div class="p-4">
-                    <h3 class="font-semibold mb-2">Otimização para LLMs e SEO</h3>
-                    <p class="text-sm text-slate-600 mb-3">Como estruturar conteúdo para ser encontrado por crawlers de IA.</p>
-                    <div class="flex items-center justify-between text-xs text-slate-500">
-                        <span>10 de dezembro</span>
-                        <span>6 min de leitura</span>
-                    </div>
-                </div>
-            </article>
+            <a class="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-900" href="#contato">Conheça nosso processo →</a>
+          </div>
         </div>
+      </div>
     </section>
 
-    <!-- Admin Panel -->
-    <section id="admin" class="container mx-auto px-4 max-w-6xl py-12 fade-in">
-        <div class="rounded-2xl border border-slate-200 bg-white/90 p-6 card-hover">
-            <h2 class="text-xl font-bold mb-4">Painel Administrativo</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="p-4 border border-slate-200 rounded-lg">
-                    <h3 class="font-semibold mb-2">Cookies seguros</h3>
-                    <p class="text-sm text-slate-600">(httpOnly)</p>
-                </div>
-                <div class="p-4 border border-slate-200 rounded-lg">
-                    <h3 class="font-semibold mb-2">Sessões com hash</h3>
-                    <p class="text-sm text-slate-600">SHA-256</p>
-                </div>
-                <div class="p-4 border border-slate-200 rounded-lg">
-                    <h3 class="font-semibold mb-2">Rate limiting &</h3>
-                    <p class="text-sm text-slate-600">auditoria</p>
-                </div>
+    <section class="bg-blue-50 py-20" id="agende">
+      <div class="mx-auto grid max-w-6xl gap-10 px-6 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1fr)]">
+        <div>
+          <span class="section-title">Tour guiado</span>
+          <h2 class="mt-2 text-3xl font-semibold tracking-tight text-slate-900">Agende uma visita presencial ou virtual</h2>
+          <p class="mt-3 max-w-xl text-sm text-slate-600">Selecione até três imóveis, receba uma curadoria personalizada e organize visitas com logística otimizada. Nossa equipe acompanha todo o percurso.</p>
+          <dl class="mt-8 grid gap-6 text-sm text-slate-700 sm:grid-cols-2">
+            <div class="rounded-2xl bg-white p-6 shadow-sm">
+              <dt class="font-semibold text-slate-900">Visita presencial</dt>
+              <dd class="mt-2 text-sm text-slate-600">Carro executivo, roteiro guiado e apresentação técnica do imóvel.</dd>
             </div>
+            <div class="rounded-2xl bg-white p-6 shadow-sm">
+              <dt class="font-semibold text-slate-900">Tour virtual 360°</dt>
+              <dd class="mt-2 text-sm text-slate-600">Acesso imediato aos tours, vídeo em 4K e planta humanizada.</dd>
+            </div>
+          </dl>
         </div>
+        <form class="rounded-3xl bg-white p-8 shadow-xl shadow-blue-200" id="visitForm">
+          <h3 class="text-xl font-semibold text-slate-900">Quero agendar</h3>
+          <p class="mt-2 text-sm text-slate-600">Retornamos em até 2 horas úteis.</p>
+          <div class="mt-6 grid gap-4">
+            <label class="text-sm font-medium text-slate-500">Nome
+              <input class="mt-1 w-full rounded-2xl border border-slate-200 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100" type="text" name="nome" required />
+            </label>
+            <label class="text-sm font-medium text-slate-500">Telefone / WhatsApp
+              <input class="mt-1 w-full rounded-2xl border border-slate-200 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100" type="tel" name="telefone" required />
+            </label>
+            <label class="text-sm font-medium text-slate-500">E-mail
+              <input class="mt-1 w-full rounded-2xl border border-slate-200 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100" type="email" name="email" required />
+            </label>
+            <label class="text-sm font-medium text-slate-500">Imóvel de interesse
+              <select class="mt-1 w-full rounded-2xl border border-slate-200 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100" name="imovel">
+                <option value="">Selecione</option>
+                <option>Cobertura Skyline Camburi</option>
+                <option>Casa Alphaville</option>
+                <option>Sala corporativa Enseada</option>
+                <option>Atlântico Residence</option>
+                <option>Mansão Ilha do Boi</option>
+                <option>Galpão BR-262</option>
+              </select>
+            </label>
+            <label class="text-sm font-medium text-slate-500">Mensagem
+              <textarea class="mt-1 w-full rounded-2xl border border-slate-200 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100" rows="4" name="mensagem" placeholder="Conte-nos o que você procura"></textarea>
+            </label>
+            <button class="mt-2 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-700 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-400/40 hover:shadow-blue-500/40" type="submit">Enviar mensagem</button>
+          </div>
+          <p class="mt-4 text-xs text-slate-400">Se preferir, fale conosco pelo WhatsApp: (27) 99999-0000.</p>
+        </form>
+      </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="border-t border-slate-200 mt-16 py-8">
-        <div class="container mx-auto px-4 max-w-6xl text-center text-sm text-slate-600">
-            <p>© 2024 Hebert Paes. Plataforma pessoal com Next.js e Cloud Run.</p>
+    <section class="mx-auto max-w-6xl px-6 py-20">
+      <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)]">
+        <div class="rounded-3xl border border-slate-200 bg-white p-8 shadow-lg">
+          <span class="section-title">Histórias reais</span>
+          <h2 class="mt-2 text-3xl font-semibold tracking-tight text-slate-900">Depoimentos de clientes</h2>
+          <p class="mt-3 text-sm text-slate-600">Inspirado nos portais de referência, apresentamos avaliações espontâneas que reforçam a experiência de compra.</p>
+          <div class="mt-6 space-y-6" id="testimonialList">
+            <figure class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+              <blockquote class="text-sm text-slate-600">“Conduziram todo o processo do meu apartamento em Jardim da Penha com eficiência e transparência. O tour virtual acelerou nossa decisão.”</blockquote>
+              <figcaption class="mt-4 text-sm font-semibold text-slate-900">Mariana e Rodrigo • Cliente residencial</figcaption>
+            </figure>
+            <figure class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+              <blockquote class="text-sm text-slate-600">“Mapa de liquidez, análise documental e apoio jurídico impecável. Fechamos a compra de um galpão logístico em 35 dias.”</blockquote>
+              <figcaption class="mt-4 text-sm font-semibold text-slate-900">Eduardo Lima • Investidor</figcaption>
+            </figure>
+            <figure class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+              <blockquote class="text-sm text-slate-600">“Equipe sempre disponível e alinhada com a nossa construtora. Todas as unidades comercializadas em tempo recorde.”</blockquote>
+              <figcaption class="mt-4 text-sm font-semibold text-slate-900">Vivaz Construtora • Parceiro</figcaption>
+            </figure>
+          </div>
         </div>
-    </footer>
+        <div class="space-y-10">
+          <div class="rounded-3xl bg-gradient-to-br from-blue-600 to-indigo-700 p-[1px] shadow-xl">
+            <div class="rounded-[1.4rem] bg-white p-8 text-slate-900">
+              <p class="text-sm uppercase tracking-[0.18em] text-blue-600">Blog e insights</p>
+              <h3 class="mt-3 text-2xl font-semibold">Conteúdo para quem decide com dados</h3>
+              <ul class="mt-6 space-y-4 text-sm text-slate-600">
+                <li class="rounded-2xl border border-slate-200 p-4">
+                  <p class="text-xs uppercase tracking-[0.2em] text-blue-500">Mercado</p>
+                  <a class="mt-1 block text-base font-semibold text-slate-900" href="#">Panorama de valorização 2024 na Grande Vitória</a>
+                  <p class="mt-1 text-xs text-slate-500">Atualizado em 12 de janeiro</p>
+                </li>
+                <li class="rounded-2xl border border-slate-200 p-4">
+                  <p class="text-xs uppercase tracking-[0.2em] text-blue-500">Guia</p>
+                  <a class="mt-1 block text-base font-semibold text-slate-900" href="#">Checklist documental para compra segura</a>
+                  <p class="mt-1 text-xs text-slate-500">Atualizado em 08 de janeiro</p>
+                </li>
+                <li class="rounded-2xl border border-slate-200 p-4">
+                  <p class="text-xs uppercase tracking-[0.2em] text-blue-500">Investimentos</p>
+                  <a class="mt-1 block text-base font-semibold text-slate-900" href="#">Como estruturar carteira de imóveis para renda passiva</a>
+                  <p class="mt-1 text-xs text-slate-500">Atualizado em 03 de janeiro</p>
+                </li>
+              </ul>
+              <a class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-blue-600" href="#">Ler todos os artigos →</a>
+            </div>
+          </div>
+          <div class="rounded-3xl border border-slate-200 bg-white p-8 shadow-lg">
+            <p class="text-sm uppercase tracking-[0.18em] text-blue-600">Perguntas frequentes</p>
+            <ul class="mt-4 space-y-4 text-sm text-slate-600">
+              <li>
+                <details class="group rounded-2xl border border-slate-200 p-4">
+                  <summary class="flex cursor-pointer items-center justify-between text-sm font-semibold text-slate-900">Como funciona o atendimento híbrido?<span class="text-lg text-blue-500">+</span></summary>
+                  <p class="mt-3 text-sm text-slate-600">Agende online, combine visitas presenciais e finalize com assinatura digital. Tudo acompanhado pelo seu consultor.</p>
+                </details>
+              </li>
+              <li>
+                <details class="group rounded-2xl border border-slate-200 p-4">
+                  <summary class="flex cursor-pointer items-center justify-between text-sm font-semibold text-slate-900">Posso anunciar meu imóvel?</summary>
+                  <p class="mt-3 text-sm text-slate-600">Sim! Realizamos avaliação técnica gratuita, produção de mídia e divulgação em mais de 12 canais simultaneamente.</p>
+                </details>
+              </li>
+              <li>
+                <details class="group rounded-2xl border border-slate-200 p-4">
+                  <summary class="flex cursor-pointer items-center justify-between text-sm font-semibold text-slate-900">Quais bancos são parceiros?</summary>
+                  <p class="mt-3 text-sm text-slate-600">Caixa, Itaú, Santander e Bradesco. Intermediamos todo o processo de financiamento, incluindo portabilidade.</p>
+                </details>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 
-    <script>
-        // Dark mode toggle
-        let isDark = false;
-        
-        function toggleDarkMode() {
-            isDark = !isDark;
-            const body = document.getElementById('body');
-            const header = document.getElementById('header');
-            const toggle = document.getElementById('themeToggle');
-            
-            if (isDark) {
-                body.className = 'bg-slate-950 text-slate-100 min-h-screen';
-                header.className = 'sticky top-0 z-30 backdrop-blur border-b bg-slate-900/70 border-slate-800';
-                toggle.textContent = '☀️ Claro';
-            } else {
-                body.className = 'bg-gradient-to-b from-white to-slate-50 min-h-screen';
-                header.className = 'sticky top-0 z-30 backdrop-blur border-b bg-gradient-to-b from-white/80 to-white/40 border-slate-200/60';
-                toggle.textContent = '🌙 Escuro';
-            }
-        }
-        
-        // Tab switching
-        function showLogin() {
-            document.getElementById('loginForm').classList.remove('hidden');
-            document.getElementById('registerForm').classList.add('hidden');
-            document.getElementById('loginTab').className = 'flex-1 py-2 px-4 text-sm font-medium rounded-l-lg border bg-slate-900 text-white border-slate-900';
-            document.getElementById('registerTab').className = 'flex-1 py-2 px-4 text-sm font-medium rounded-r-lg border-t border-r border-b bg-white text-slate-700 border-slate-300 hover:bg-slate-50';
-        }
-        
-        function showRegister() {
-            document.getElementById('loginForm').classList.add('hidden');
-            document.getElementById('registerForm').classList.remove('hidden');
-            document.getElementById('loginTab').className = 'flex-1 py-2 px-4 text-sm font-medium rounded-l-lg border bg-white text-slate-700 border-slate-300 hover:bg-slate-50';
-            document.getElementById('registerTab').className = 'flex-1 py-2 px-4 text-sm font-medium rounded-r-lg border bg-slate-900 text-white border-slate-900';
-        }
-        
-        // Form submissions
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Login simulado! (Esta é apenas uma prévia)');
+  <section class="relative bg-slate-900 py-20 text-slate-100" id="contato">
+    <div class="mx-auto grid max-w-6xl gap-12 px-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)]">
+      <div class="space-y-6">
+        <span class="section-title text-blue-200">Contato direto</span>
+        <h2 class="text-3xl font-semibold tracking-tight">Converse com nosso time agora mesmo</h2>
+        <p class="text-sm text-slate-300">Atendimento rápido via WhatsApp, telefone ou presencial em nossa unidade na Praia do Canto.</p>
+        <div class="rounded-3xl border border-white/10 bg-white/5 p-6 text-sm text-slate-200">
+          <p class="font-semibold text-white">Central Praia do Canto</p>
+          <p class="mt-2">Rua Aleixo Neto, 1200 • Sala 804 • Vitória - ES</p>
+          <p class="mt-4">WhatsApp: <a class="font-semibold text-blue-200" href="https://wa.me/5527999990000">(27) 99999-0000</a></p>
+          <p class="mt-1">E-mail: <a class="font-semibold text-blue-200" href="mailto:contato@hebertpaes.com">contato@hebertpaes.com</a></p>
+          <p class="mt-1">Horário: Seg. a Sáb. das 8h às 20h</p>
+        </div>
+        <div class="rounded-3xl border border-white/10 bg-white/5 p-6 text-sm text-slate-200">
+          <p class="font-semibold text-white">Mapa interativo</p>
+          <p class="mt-2 text-sm text-slate-300">Visualize as oportunidades por região e receba alertas personalizados.</p>
+          <div class="mt-4 overflow-hidden rounded-2xl border border-white/10 bg-slate-950">
+            <img alt="Mapa ilustrativo da Grande Vitória" class="h-48 w-full object-cover opacity-80" src="https://images.unsplash.com/photo-1502920917128-1aa500764b81?w=900&q=80" loading="lazy" />
+          </div>
+        </div>
+      </div>
+      <form class="rounded-3xl bg-white p-8 text-slate-900 shadow-2xl shadow-blue-800/30" id="contactForm">
+        <h3 class="text-2xl font-semibold">Envie sua mensagem</h3>
+        <p class="mt-2 text-sm text-slate-600">Retorno em até 1 hora útil.</p>
+        <div class="mt-6 grid gap-4">
+          <label class="text-sm font-medium text-slate-500">Nome completo
+            <input class="mt-1 w-full rounded-2xl border border-slate-200 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100" name="nome" type="text" required />
+          </label>
+          <label class="text-sm font-medium text-slate-500">E-mail
+            <input class="mt-1 w-full rounded-2xl border border-slate-200 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100" name="email" type="email" required />
+          </label>
+          <label class="text-sm font-medium text-slate-500">Telefone
+            <input class="mt-1 w-full rounded-2xl border border-slate-200 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100" name="telefone" type="tel" required />
+          </label>
+          <label class="text-sm font-medium text-slate-500">Assunto
+            <select class="mt-1 w-full rounded-2xl border border-slate-200 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100" name="assunto">
+              <option>Comprar</option>
+              <option>Vender</option>
+              <option>Alugar</option>
+              <option>Investir</option>
+              <option>Parcerias</option>
+            </select>
+          </label>
+          <label class="text-sm font-medium text-slate-500">Mensagem
+            <textarea class="mt-1 w-full rounded-2xl border border-slate-200 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100" name="mensagem" rows="4" placeholder="Conte-nos como podemos ajudar"></textarea>
+          </label>
+          <label class="flex items-center gap-3 text-xs text-slate-500">
+            <input class="h-4 w-4 rounded border border-slate-300" type="checkbox" required />
+            Concordo em receber contato da equipe Hebert Paes Imóveis.
+          </label>
+          <button class="rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-700 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-600/40 hover:shadow-blue-700/40" type="submit">Enviar agora</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <footer class="border-t border-slate-200 bg-white py-12">
+    <div class="mx-auto grid max-w-6xl gap-10 px-6 md:grid-cols-4">
+      <div class="space-y-4">
+        <a class="flex items-center gap-3" href="#hero">
+          <span class="grid h-10 w-10 place-items-center rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 text-sm font-semibold text-white">HP</span>
+          <p class="text-sm font-semibold text-slate-900">Hebert Paes Imóveis</p>
+        </a>
+        <p class="text-xs text-slate-500">Creci-ES 12345 • Plataforma digital com atendimento consultivo e presencial.</p>
+      </div>
+      <div>
+        <h4 class="text-sm font-semibold text-slate-900">Institucional</h4>
+        <ul class="mt-4 space-y-2 text-sm text-slate-600">
+          <li><a class="hover:text-blue-600" href="#servicos">Serviços</a></li>
+          <li><a class="hover:text-blue-600" href="#bairros">Regiões atendidas</a></li>
+          <li><a class="hover:text-blue-600" href="#">Blog</a></li>
+          <li><a class="hover:text-blue-600" href="#contato">Trabalhe conosco</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-sm font-semibold text-slate-900">Clientes</h4>
+        <ul class="mt-4 space-y-2 text-sm text-slate-600">
+          <li><a class="hover:text-blue-600" href="#agende">Agendar visita</a></li>
+          <li><a class="hover:text-blue-600" href="#contato">Anunciar</a></li>
+          <li><a class="hover:text-blue-600" href="#">Financiamento</a></li>
+          <li><a class="hover:text-blue-600" href="#">Política de privacidade</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-sm font-semibold text-slate-900">Newsletter</h4>
+        <form class="mt-4 flex gap-2" id="newsletterForm">
+          <input class="flex-1 rounded-2xl border border-slate-200 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100" type="email" placeholder="Seu melhor e-mail" required />
+          <button class="rounded-2xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white" type="submit">Enviar</button>
+        </form>
+        <p class="mt-2 text-xs text-slate-500">Receba oportunidades exclusivas antes do lançamento.</p>
+      </div>
+    </div>
+    <div class="mt-10 border-t border-slate-200/60 pt-6">
+      <p class="text-center text-xs text-slate-500">© 2024 Hebert Paes Imóveis. Criado com foco em performance, SEO e atendimento consultivo.</p>
+    </div>
+  </footer>
+
+  <script>
+    const menuButton = document.getElementById('menuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuButton?.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('hidden');
+      menuButton.setAttribute('aria-expanded', String(!isOpen));
+    });
+
+    const tabs = document.querySelectorAll('.tabs button');
+    const cards = document.querySelectorAll('#propertyGrid article');
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        tabs.forEach((t) => t.classList.remove('is-active'));
+        tab.classList.add('is-active');
+        const type = tab.dataset.filter || '';
+        cards.forEach((card) => {
+          card.classList.remove('hidden');
+          if (type && card.dataset.type !== type) {
+            card.classList.add('hidden');
+          }
         });
-        
-        document.getElementById('registerForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Cadastro simulado! (Esta é apenas uma prévia)');
-        });
-    </script>
+      });
+    });
+
+    const searchForm = document.getElementById('searchForm');
+    searchForm?.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const formData = new FormData(searchForm);
+      const filters = {
+        cidade: (formData.get('cidade') || '').toString().trim().toLowerCase(),
+        tipo: (formData.get('tipo') || '').toString(),
+        preco: (formData.get('preco') || '').toString()
+      };
+      cards.forEach((card) => {
+        const matchesCity = !filters.cidade || card.dataset.city?.includes(filters.cidade);
+        const matchesType = !filters.tipo || card.dataset.type === filters.tipo;
+        const matchesPrice = !filters.preco || card.dataset.price === filters.preco;
+        card.classList.toggle('hidden', !(matchesCity && matchesType && matchesPrice));
+      });
+      const visible = Array.from(cards).some((card) => !card.classList.contains('hidden'));
+      if (!visible) {
+        alert('Nenhum imóvel encontrado com os filtros aplicados. Tente ajustar sua busca.');
+      }
+    });
+
+    const visitForm = document.getElementById('visitForm');
+    visitForm?.addEventListener('submit', (event) => {
+      event.preventDefault();
+      alert('Obrigado! Nossa equipe entrará em contato para agendar seu tour.');
+      visitForm.reset();
+    });
+
+    const contactForm = document.getElementById('contactForm');
+    contactForm?.addEventListener('submit', (event) => {
+      event.preventDefault();
+      alert('Mensagem enviada com sucesso! Responderemos em breve.');
+      contactForm.reset();
+    });
+
+    const newsletterForm = document.getElementById('newsletterForm');
+    newsletterForm?.addEventListener('submit', (event) => {
+      event.preventDefault();
+      alert('Obrigado por se inscrever! Enviaremos novidades quinzenais.');
+      newsletterForm.reset();
+    });
+  </script>
 </body>
 </html>
