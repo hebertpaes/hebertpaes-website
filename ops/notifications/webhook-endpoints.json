@@ -1,0 +1,22 @@
+[
+  {
+    "name": "slack-infra",
+    "type": "slack",
+    "url": "${SLACK_WEBHOOK_URL}",
+    "events": ["deploy", "uptime", "backup"]
+  },
+  {
+    "name": "telegram-ops",
+    "type": "telegram",
+    "botToken": "${TELEGRAM_BOT_TOKEN}",
+    "chatId": "${TELEGRAM_CHAT_ID}",
+    "events": ["incident"]
+  },
+  {
+    "name": "statuspage",
+    "type": "statuspage",
+    "apiKey": "${STATUSPAGE_API_KEY}",
+    "pageId": "${STATUSPAGE_PAGE_ID}",
+    "events": ["incident"]
+  }
+]

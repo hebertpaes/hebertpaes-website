@@ -1,0 +1,47 @@
+name: backup-verify
+
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    env:
+      AZ_STORAGE_ACCOUNT: ${{ secrets.AZ_STORAGE_ACCOUNT }}
+      AZ_STORAGE_KEY: ${{ secrets.AZ_STORAGE_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Listar últimos backups
+        run: |
+          az storage blob list \
+            --account-name "$AZ_STORAGE_ACCOUNT" \
+            --account-key "$AZ_STORAGE_KEY" \
+            --container-name hebertpaes-backups \
+            --num-results 10 \
+            --output table
+      - name: Verificar integridade mais recente
+        run: |
+          LATEST=$(az storage blob list \
+            --account-name "$AZ_STORAGE_ACCOUNT" \
+            --account-key "$AZ_STORAGE_KEY" \
+            --container-name hebertpaes-backups \
+            --query "[0].name" -o tsv)
+          az storage blob download \
+            --account-name "$AZ_STORAGE_ACCOUNT" \
+            --account-key "$AZ_STORAGE_KEY" \
+            --container-name hebertpaes-backups \
+            --name "$LATEST" \
+            --file /tmp/latest.tar.gz
+          tar -tzf /tmp/latest.tar.gz > /dev/null
+      - name: Retenção (90 dias)
+        run: |
+          CUTOFF=$(date -u -d '90 days ago' +%s)
+          az storage blob list --account-name "$AZ_STORAGE_ACCOUNT" --account-key "$AZ_STORAGE_KEY" --container-name hebertpaes-backups --query "[].{name:name,lastModified:last_modified}" -o tsv | \
+            while read -r NAME LAST; do
+              TS=$(date -d "$LAST" +%s)
+              if [[ $TS -lt $CUTOFF ]]; then
+                az storage blob delete --account-name "$AZ_STORAGE_ACCOUNT" --account-key "$AZ_STORAGE_KEY" --container-name hebertpaes-backups --name "$NAME"
+              fi
+            done
