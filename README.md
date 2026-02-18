@@ -25,6 +25,14 @@ npm run dev
 ```
 Acesse <http://localhost:3000>.
 
+### Variáveis de ambiente
+Copie o arquivo `.env.example` para `.env.local` e preencha:
+- `NEXT_PUBLIC_SITE_URL`
+- `NEXT_PUBLIC_APPINSIGHTS_CONN`
+- Credenciais usadas pelos pipelines (Azure, Checkly, Slack, Statuspage etc.)
+
+Os mesmos nomes de variáveis devem ser cadastrados como **GitHub Actions secrets** para que deploy, monitoramento e backup funcionem.
+
 ## Boas práticas atendidas
 - Metadata avançada (`app/layout.tsx`)
 - Design responsivo e acessível (classes utilitárias + contraste)
@@ -41,6 +49,12 @@ Configure os seguintes segredos no GitHub:
 - `AZURE_STATIC_WEB_APPS_API_TOKEN`
 - `AZURE_STATIC_WEB_APPS_APP_LOCATION` (default `/`)
 - `AZURE_STATIC_WEB_APPS_OUTPUT_LOCATION` (default `.next`)
+- `AZ_STORAGE_ACCOUNT` / `AZ_STORAGE_KEY` (scripts de backup em `backup/`)
+- `SLACK_WEBHOOK_URL`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID` (notificações)
+- `STATUSPAGE_API_KEY`, `STATUSPAGE_PAGE_ID` (incident automation)
+- `CHECKLY_API_KEY`, `CHECKLY_ACCOUNT_ID` (monitoramento via Terraform)
+
+> Todos esses campos já estão listados em `.env.example` para servir de referência.
 
 ## Próximos passos sugeridos
 - Conectar CMS (Contentlayer, Sanity, etc.) para posts reais
